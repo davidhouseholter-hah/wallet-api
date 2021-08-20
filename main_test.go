@@ -157,7 +157,7 @@ func TestAccountServices(t *testing.T) {
 	defer os.Remove(testDbDSN)
 	defer gorm.Close(db)
 
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, nil)
 	accountStore := accounts.NewGormStore(db)
 	keyStore := keys.NewGormStore(db)
 	txStore := transactions.NewGormStore(db)
@@ -274,7 +274,7 @@ func TestAccountHandlers(t *testing.T) {
 	defer os.Remove(testDbDSN)
 	defer gorm.Close(db)
 
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, nil)
 	keyStore := keys.NewGormStore(db)
 	txStore := transactions.NewGormStore(db)
 
@@ -426,7 +426,7 @@ func TestTransactionHandlers(t *testing.T) {
 	defer os.Remove(testDbDSN)
 	defer gorm.Close(db)
 
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, nil)
 	keyStore := keys.NewGormStore(db)
 
 	templateStore := templates.NewGormStore(db)
@@ -781,7 +781,7 @@ func TestTokenServices(t *testing.T) {
 	defer os.Remove(testDbDSN)
 	defer gorm.Close(db)
 
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, nil)
 	accountStore := accounts.NewGormStore(db)
 	keyStore := keys.NewGormStore(db)
 	transactionStore := transactions.NewGormStore(db)
@@ -973,7 +973,7 @@ func TestTokenHandlers(t *testing.T) {
 	defer os.Remove(testDbDSN)
 	defer gorm.Close(db)
 
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, nil)
 	accountStore := accounts.NewGormStore(db)
 	keyStore := keys.NewGormStore(db)
 	transactionStore := transactions.NewGormStore(db)
@@ -1518,7 +1518,7 @@ func TestNFTDeployment(t *testing.T) {
 	templateStore := templates.NewGormStore(db)
 	templateService := templates.NewService(templateStore)
 
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, nil)
 	accountStore := accounts.NewGormStore(db)
 	keyStore := keys.NewGormStore(db)
 	transactionStore := transactions.NewGormStore(db)

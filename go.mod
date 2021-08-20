@@ -5,6 +5,7 @@ go 1.16
 require (
 	cloud.google.com/go v0.81.0
 	github.com/caarlos0/env/v6 v6.6.2
+	github.com/callistaenterprise/goblog/common v0.0.0-20201005203443-8d67cd68b929
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/uuid v1.2.0
@@ -17,7 +18,9 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.7 // indirect
 	github.com/onflow/cadence v0.16.0
 	github.com/onflow/flow-go-sdk v0.20.0
-	github.com/sirupsen/logrus v1.8.1 // indirect
+	github.com/opentracing/opentracing-go v1.1.0
+	github.com/sirupsen/logrus v1.8.1
+	github.com/streadway/amqp v0.0.0-20190827072141-edfb9018d271
 	go.uber.org/goleak v1.1.10
 	golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b // indirect
 	golang.org/x/net v0.0.0-20210505024714-0287a6fb4125 // indirect

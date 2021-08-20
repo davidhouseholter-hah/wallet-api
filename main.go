@@ -19,6 +19,7 @@ import (
 	"github.com/eqlabs/flow-wallet-api/jobs"
 	"github.com/eqlabs/flow-wallet-api/keys"
 	"github.com/eqlabs/flow-wallet-api/keys/basic"
+	"github.com/eqlabs/flow-wallet-api/message_client"
 	"github.com/eqlabs/flow-wallet-api/templates"
 	"github.com/eqlabs/flow-wallet-api/tokens"
 	"github.com/eqlabs/flow-wallet-api/transactions"
@@ -36,11 +37,14 @@ var (
 	buildTime string // when the executable was built
 )
 
+// Config struct
 type Config struct {
-	Host          string       `env:"HOST"`
-	Port          int          `env:"PORT" envDefault:"3000"`
-	AccessAPIHost string       `env:"ACCESS_API_HOST,notEmpty"`
-	ChainID       flow.ChainID `env:"CHAIN_ID" envDefault:"flow-emulator"`
+	Host           string       `env:"HOST"`
+	Port           int          `env:"PORT" envDefault:"3000"`
+	AccessAPIHost  string       `env:"ACCESS_API_HOST,notEmpty"`
+	ChainID        flow.ChainID `env:"CHAIN_ID" envDefault:"flow-emulator"`
+	BrokerHostName string       `env:"BROKER_HOST_NAME" envDefault:""`
+	BrokerExchange string       `env:"BROKER_EXCHANGE"`
 }
 
 func main() {
@@ -109,8 +113,14 @@ func runServer(disableRawTx, disableFt, disableNft, disableChainEvents bool) {
 	}
 	defer gorm.Close(db)
 
+	messageClient := &message_client.AmqpClient{}
+	if cfg.BrokerHostName != "" {
+		messageClient = &message_client.AmqpClient{}
+		messageClient.ConnectToBroker(cfg.BrokerHostName)
+	}
+
 	templateStore := templates.NewGormStore(db)
-	jobStore := jobs.NewGormStore(db)
+	jobStore := jobs.NewGormStore(db, messageClient)
 	accountStore := accounts.NewGormStore(db)
 	keyStore := keys.NewGormStore(db)
 	transactionStore := transactions.NewGormStore(db)
